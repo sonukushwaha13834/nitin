@@ -1386,16 +1386,52 @@ function showFeesDetail() {
         getStartMonth(student);
 
 
-    const now =
-        new Date();
+    // const now =
+    //     new Date();
 
 
-    const endMonth =
-        now.getMonth() + 1;
+    // const endMonth =
+    //     now.getMonth() + 1;
 
 
-    const endYear =
-        now.getFullYear();
+    // const endYear =
+    //     now.getFullYear();
+    const now = new Date();
+
+let endMonth = now.getMonth() + 1;
+let endYear = now.getFullYear();
+
+/*
+   Agar student ki koi payment future fee month
+   ke liye already added hai, to us month tak
+   Fees Details show karo.
+*/
+
+payments.forEach(function (payment) {
+
+    if (Number(payment.studentId) !== Number(student.id)) {
+        return;
+    }
+
+    const paymentMonth = Number(payment.month);
+    const paymentYear = Number(payment.year);
+
+    if (!paymentMonth || !paymentYear) {
+        return;
+    }
+
+    const paymentMonthNumber =
+        monthNumber(paymentMonth, paymentYear);
+
+    const currentEndNumber =
+        monthNumber(endMonth, endYear);
+
+    if (paymentMonthNumber > currentEndNumber) {
+        endMonth = paymentMonth;
+        endYear = paymentYear;
+    }
+
+});
 
 
     let rows = "";
