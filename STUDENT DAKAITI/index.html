@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuition Fees Manager</title>
+    <link rel="stylesheet" href="style.css">
+
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#4f46e5">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>🎓 Tuition Fees Manager</h1>
+        <p>Student & Fees Management System</p>
+    </header>
+
+    <nav>
+        <button onclick="showSection('dashboard')">Dashboard</button>
+        <button onclick="showSection('addStudent')">Add Student</button>
+        <button onclick="showSection('payment')">Fees Payment</button>
+        <button onclick="showSection('received')">Received Payments</button>
+        <button onclick="showSection('students')">Student ID</button>
+        <button onclick="showSection('search')">Search</button>
+        <button onclick="showSection('feesDetail')">Fees Detail</button>
+        <button onclick="showSection('report')">Fees Report</button>
+    </nav>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section id="dashboard" class="section active">
+
+        <h2>📊 Dashboard</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Total Students</h3>
+                <p id="totalStudents">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Payments</h3>
+                <p id="totalPayments">₹0</p>
+            </div>
+
+            <div class="card">
+                <h3>This Month Collection</h3>
+                <p id="currentMonth">₹0</p>
+            </div>
+
+            <div class="card">
+                <h3>This Month Pending</h3>
+                <p id="totalPending">₹0</p>
+            </div>
+
+        </div>
+
+
+        <div class="pending-list">
+
+            <h3>👨‍🎓 All Students</h3>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Student Name</th>
+                            <th>Class</th>
+                            <th>Joining Date</th>
+                            <th>Monthly Fees</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="dashboardStudentTable">
+
+                        <tr>
+                            <td colspan="5">
+                                No students found.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ADD STUDENT ================= -->
+
+    <section id="addStudent" class="section">
+
+        <h2>➕ Add Student</h2>
+
+        <form id="studentForm">
+
+            <label>Student Name</label>
+            <input type="text" id="studentName" required>
+
+            <label>Class</label>
+            <input type="text" id="studentClass" required>
+
+            <label>Date of Joining</label>
+            <input type="date" id="joiningDate" required>
+
+            <label>Monthly Fees</label>
+            <input type="number" id="monthlyFees" min="1" required>
+
+            <button type="submit" class="primary">
+                Add Student
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- ================= FEES PAYMENT ================= -->
+
+    <section id="payment" class="section">
+
+        <h2>💰 Add Fees Payment</h2>
+
+        <form id="paymentForm">
+
+            <label>Student</label>
+
+            <select id="paymentStudent" required>
+                <option value="">Select Student</option>
+            </select>
+
+
+            <label>Month</label>
+
+            <select id="paymentMonth" required>
+
+                <option value="">Select Month</option>
+
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+
+            </select>
+
+
+            <label>Year</label>
+
+            <input
+                type="number"
+                id="paymentYear"
+                required
+            >
+
+
+            <label>Amount Received</label>
+
+            <input
+                type="number"
+                id="paymentAmount"
+                min="1"
+                required
+            >
+
+
+            <label>Payment Date</label>
+
+            <input
+                type="date"
+                id="paymentDate"
+                required
+            >
+
+
+            <button type="submit" class="primary">
+                Save Payment
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- ================= RECEIVED PAYMENTS ================= -->
+
+    <section id="received" class="section">
+
+        <h2>✅ Received Payments</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Payment ID</th>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                        <th>Amount Received</th>
+                        <th>Payment Date</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="receivedPaymentTable">
+
+                    <tr>
+                        <td colspan="7">
+                            No payments received yet.
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= STUDENTS ================= -->
+
+    <section id="students" class="section">
+
+        <h2>🪪 Student ID & Details</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Joining Date</th>
+                        <th>Monthly Fees</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="studentTable">
+
+                    <tr>
+                        <td colspan="6">
+                            No students found.
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SEARCH ================= -->
+
+    <section id="search" class="section">
+
+        <h2>🔍 Search Student</h2>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Enter student name or ID..."
+            >
+
+            <button
+                onclick="searchStudent()"
+                class="primary"
+            >
+                Search
+            </button>
+
+        </div>
+
+        <div id="searchResult"></div>
+
+    </section>
+
+
+    <!-- ================= FEES DETAIL ================= -->
+
+    <section id="feesDetail" class="section">
+
+        <h2>📋 Student Fees Detail</h2>
+
+        <label>Select Student</label>
+
+        <select
+            id="detailStudent"
+            onchange="showFeesDetail()"
+        >
+
+            <option value="">
+                Select Student
+            </option>
+
+        </select>
+
+        <div id="feesHistory"></div>
+
+    </section>
+
+
+    <!-- ================= FEES REPORT ================= -->
+
+    <section id="report" class="section">
+
+        <h2>📊 Fees Report</h2>
+
+        <div class="report-controls">
+
+            <label>Select Month</label>
+
+            <select id="reportMonth">
+
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+
+            </select>
+
+
+            <input
+                type="number"
+                id="reportYear"
+                placeholder="Enter Year"
+            >
+
+
+            <button
+                onclick="generateReport()"
+                class="primary"
+            >
+                View Report
+            </button>
+
+        </div>
+
+        <div id="reportResult"></div>
+
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", function () {
+
+        navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(function () {
+
+                console.log(
+                    "✅ Tuition Fees Manager installed successfully."
+                );
+
+            })
+            .catch(function (error) {
+
+                console.error(
+                    "Service Worker Error:",
+                    error
+                );
+
+            });
+
+    });
+
+}
+
+</script>
+
+
+</body>
+</html>

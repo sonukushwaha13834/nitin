@@ -1,0 +1,12 @@
+
+{
+    "name": "Tuition Fees Manager",
+    "short_name": "Fees Manager",
+    "description": "Student and Tuition Fees Management System",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#f4f6f9",
+    "theme_color": "#4f46e5",
+    "orientation": "portrait-primary"
+  
+} 
